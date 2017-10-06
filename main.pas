@@ -33,13 +33,22 @@ var
 implementation
 
 var
-  status: Boolean;
   hMutex: THandle;
+  time: Integer;
+  withEnter: Boolean;
 
 {$R *.dfm}
 
 procedure TfrmMain.btnStartClick(Sender: TObject);
+var
+  sTime: string;
 begin
+  sTime := Trim(edtTime.Text);
+  if (sTime <> '') then
+  begin
+    time := StrToInt(sTime);
+  end;
+  withEnter := chkEnter.Checked;
   ReleaseMutex(hMutex);
 end;
 
@@ -51,12 +60,15 @@ begin
     if WaitForSingleObject(hMutex, INFINITE) = WAIT_OBJECT_0 then
     begin
       try
-        sleep(5000);
+        sleep(time);
         mouse_event(MOUSEEVENTF_RIGHTDOWN,0,0,0,0);//模拟按下鼠标右键。
         mouse_event(MOUSEEVENTF_RIGHTUP,0,0,0,0);//模拟放开鼠标右键。
-        sleep(100);
-        keybd_event(VK_RETURN,MapVirtualKey(VK_RETURN,0),0,0);//按下R键。
-        keybd_event(VK_RETURN,MapVirtualKey(VK_RETURN,0),KEYEVENTF_KEYUP,0);//放开R键。
+        sleep(10);
+        if withEnter then
+        begin
+          keybd_event(VK_RETURN,MapVirtualKey(VK_RETURN,0),0,0);//按下回车键。
+          keybd_event(VK_RETURN,MapVirtualKey(VK_RETURN,0),KEYEVENTF_KEYUP,0);//放开回车键。
+        end;
       finally
         ReleaseMutex(hMutex);
       end;
@@ -69,6 +81,8 @@ var
   td: THandle;
   dw: DWORD;
 begin
+  time := 5000;
+  withEnter := False;
   hMutex := CreateMutex(nil, false, 'autoClick');
   WaitForSingleObject(hMutex,INFINITE);
   td := CreateThread(nil, 0, @doProcess, nil, 0, dw); //创建一个线程，同时调用线程函数
