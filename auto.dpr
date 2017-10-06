@@ -8,6 +8,7 @@ uses
 
 begin
   Application.Initialize;
+  Application.Title := 'Hello World';
   Application.CreateForm(TfrmMain, frmMain);
   Application.Run;
 end.
