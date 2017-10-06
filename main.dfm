@@ -1,6 +1,6 @@
 object Form1: TForm1
-  Left = 192
-  Top = 130
+  Left = 270
+  Top = 180
   Width = 361
   Height = 476
   Caption = 'Form1'
@@ -13,4 +13,13 @@ object Form1: TForm1
   OldCreateOrder = False
   PixelsPerInch = 96
   TextHeight = 13
+  object Button1: TButton
+    Left = 112
+    Top = 48
+    Width = 75
+    Height = 25
+    Caption = 'Button1'
+    TabOrder = 0
+    OnClick = Button1Click
+  end
 end

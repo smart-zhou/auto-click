@@ -2,7 +2,7 @@ program auto;
 
 uses
   Forms,
-  main in '..\main.pas' {Form1};
+  main in 'main.pas' {Form1};
 
 {$R *.res}
 
