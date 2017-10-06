@@ -7,7 +7,7 @@ uses
   Dialogs, StdCtrls;
 
 type
-  TForm1 = class(TForm)
+  TfrmMain = class(TForm)
     Button1: TButton;
     procedure Button1Click(Sender: TObject);
   private
@@ -17,13 +17,13 @@ type
   end;
 
 var
-  Form1: TForm1;
+  frmMain: TfrmMain;
 
 implementation
 
 {$R *.dfm}
 
-procedure TForm1.Button1Click(Sender: TObject);
+procedure TfrmMain.Button1Click(Sender: TObject);
 begin
   sleep(5000);
   mouse_event(MOUSEEVENTF_RIGHTDOWN,0,0,0,0);//模拟按下鼠标右键。
